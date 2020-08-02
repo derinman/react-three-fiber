@@ -28,6 +28,13 @@ function Background() {
 
 function Diamonds() {
   const { size, viewport, gl, scene, camera, clock } = useThree()
+  //console.log("size:", size);
+  //console.log("viewport:", viewport);
+  //console.log("gl:", gl);
+  //console.log("scene:", scene);
+  //console.log("camera:", camera);
+  //console.log("clock:", clock);
+
   const model = useRef()
   const gltf = useLoader(GLTFLoader, diamondUrl)
 
@@ -46,6 +53,8 @@ function Diamonds() {
 
   // Create random position data
   const dummy = useMemo(() => new Object3D(), [])
+  //console.log(dummy);
+
   const diamonds = useMemo(
     () =>
       new Array(80).fill().map((_, i) => ({
@@ -64,6 +73,7 @@ function Diamonds() {
       })),
     [viewport.width]
   )
+  //console.log(diamonds);
 
   // Render-loop
   useFrame(() => {
@@ -106,7 +116,6 @@ function Diamonds() {
     model.current.material = refractionMaterial
     gl.render(scene, camera)
   }, 1)
-
   return (
     <instancedMesh ref={model} args={[null, null, diamonds.length]}>
       <bufferGeometry dispose={false} attach="geometry" {...gltf.__$[1].geometry} />
