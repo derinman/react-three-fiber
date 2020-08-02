@@ -38,7 +38,12 @@ function Diamonds() {
   const model = useRef()
   const gltf = useLoader(GLTFLoader, diamondUrl)
 
-  // Create Fbo's and materials
+  //Fbo: FrameBuffer Object
+  //FrameBuffer就像是一個webgl繪製的容器一樣，平時我們默認繪製都是將3d場景繪製在了默認的窗口中輸出
+  //（此時綁定framebuffer為null），而當我們指定一個FrameBuffer為當前繪製容器，再繪製時則會將對象
+  //繪製於指定的FrameBuffer中，而不是直接繪製到屏幕。
+
+  // Create Fbo and materials
   const [envFbo, backfaceFbo, backfaceMaterial, refractionMaterial] = useMemo(() => {
     const envFbo = new WebGLRenderTarget(size.width, size.height)
     const backfaceFbo = new WebGLRenderTarget(size.width, size.height)
@@ -50,6 +55,10 @@ function Diamonds() {
     })
     return [envFbo, backfaceFbo, backfaceMaterial, refractionMaterial]
   }, [size])
+  //console.log('envFbo: ', envFbo);
+  //console.log('backfaceFbo: ', backfaceFbo);
+  //console.log('backfaceMaterial:', backfaceMaterial)
+  //console.log('refractionMaterial:', refractionMaterial)
 
   // Create random position data
   const dummy = useMemo(() => new Object3D(), [])
@@ -95,27 +104,34 @@ function Diamonds() {
       model.current.setMatrixAt(i, dummy.matrix)
     })
     model.current.instanceMatrix.needsUpdate = true
+
+    //ren背後那張jpg到 fbo
     // Render env to fbo
     gl.autoClear = false
     camera.layers.set(1)
     gl.setRenderTarget(envFbo)
     gl.render(scene, camera)
+
+    //ren鑽石到fbo
     // Render cube backfaces to fbo
     camera.layers.set(0)
     model.current.material = backfaceMaterial
     gl.setRenderTarget(backfaceFbo)
     gl.clearDepth()
     gl.render(scene, camera)
+
     // Render env to screen
-    camera.layers.set(1)
+    camera.layers.set(1) //調成0看看!
     gl.setRenderTarget(null)
     gl.render(scene, camera)
     gl.clearDepth()
+
     // Render cube with refraction material to screen
     camera.layers.set(0)
-    model.current.material = refractionMaterial
+    model.current.material = refractionMaterial //試著關掉這一行看看!
     gl.render(scene, camera)
   }, 1)
+
   return (
     <instancedMesh ref={model} args={[null, null, diamonds.length]}>
       <bufferGeometry dispose={false} attach="geometry" {...gltf.__$[1].geometry} />
