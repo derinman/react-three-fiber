@@ -35,7 +35,7 @@ function Suspend({ time, ...props }) {
 
 function Content() {
   const ref = useRef()
-  useFrame(() => (ref.current.rotation.x = ref.current.rotation.y = ref.current.rotation.z += 0.025))
+  useFrame(() => (ref.current.rotation.x = ref.current.rotation.y = ref.current.rotation.z += 0.0025))
   return (
     <group ref={ref}>
       <Suspend time={500} position={[-2, 0, 0]} />
@@ -50,11 +50,13 @@ const portal = createRef()
 export default function () {
   return (
     <>
-      <Canvas concurrent style={{ background: '#272730' }} orthographic camera={{ zoom: 100 }}>
+      <Canvas concurrent style={{ background: '#AAAAAA' }} orthographic camera={{ zoom: 100 }}>
         <pointLight color="indianred" />
         <pointLight position={[10, 10, -10]} color="orange" />
         <pointLight position={[-10, -10, 10]} color="lightblue" />
         <Suspense fallback={<Sphere>Fallback</Sphere>}>
+          {' '}
+          {/*試試fallback={null} */}
           <Content />
         </Suspense>
       </Canvas>
