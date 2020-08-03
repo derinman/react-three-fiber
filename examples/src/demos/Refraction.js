@@ -37,6 +37,8 @@ function Diamonds() {
 
   const model = useRef()
   const gltf = useLoader(GLTFLoader, diamondUrl)
+  //console.log('gltf: ',gltf);
+  //console.log('gltf.__$[1].geometry: ',gltf.__$[1].geometry);
 
   //Fbo: FrameBuffer Object
   //FrameBuffer就像是一個webgl繪製的容器一樣，平時我們默認繪製都是將3d場景繪製在了默認的窗口中輸出
@@ -133,6 +135,8 @@ function Diamonds() {
   }, 1)
 
   return (
+    //instaceMesh的三個args是geometry material count
+    //attach可以綁定其parent的args
     <instancedMesh ref={model} args={[null, null, diamonds.length]}>
       <bufferGeometry dispose={false} attach="geometry" {...gltf.__$[1].geometry} />
       <meshBasicMaterial attach="material" />
