@@ -14,6 +14,8 @@ function Planet(props) {
   })
   //console.log(gltf);
 
+  console.log(gltf)
+
   return (
     <group ref={group} {...props}>
       <scene name="OSG_Scene">

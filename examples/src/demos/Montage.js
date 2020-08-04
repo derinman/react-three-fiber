@@ -24,6 +24,7 @@ const data = new Array(number).fill().map(() => {
     args: [0.1 + Math.random() * 9, 0.1 + Math.random() * 9, 10],
   }
 })
+//console.log(data);
 
 function Content() {
   const [springs, set] = useSprings(number, (i) => ({
@@ -31,7 +32,9 @@ function Content() {
     ...random(i),
     config: { mass: 20, tension: 150, friction: 50 },
   }))
+
   useEffect(() => void setInterval(() => set((i) => ({ ...random(i), delay: i * 40 })), 3000), [set])
+
   return data.map((d, index) => (
     <a.mesh key={index} {...springs[index]} castShadow receiveShadow>
       <boxBufferGeometry attach="geometry" args={d.args} />
