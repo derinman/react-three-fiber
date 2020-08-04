@@ -12,6 +12,7 @@ function Planet(props) {
     dracoLoader.decoderPath = '/draco-gltf/'
     loader.setDRACOLoader(dracoLoader)
   })
+  //console.log(gltf);
 
   return (
     <group ref={group} {...props}>
