@@ -7,6 +7,8 @@ import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass'
 import { CopyShader } from 'three/examples/jsm/shaders/CopyShader'
 import { WEBGL } from 'three/examples/jsm/WebGL'
 
+// Extend will make { EffectComposer, ShaderPass, RenderPass } available as a JSX element called
+// for { EffectComposer, ShaderPass, RenderPass } us to use.
 extend({ EffectComposer, ShaderPass, RenderPass })
 
 function Dodecahedron() {
