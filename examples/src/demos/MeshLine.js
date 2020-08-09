@@ -5,6 +5,7 @@ import { extend, Canvas, useFrame, useThree } from 'react-three-fiber'
 
 extend(meshline)
 
+//單一MeshLine生產工廠
 function Fatline({ curve, width, color, speed }) {
   const material = useRef()
   useFrame(() => (material.current.uniforms.dashOffset.value -= speed))
@@ -25,11 +26,13 @@ function Fatline({ curve, width, color, speed }) {
   )
 }
 
+//產生count數量的MeshLine本例是200
 function Lines({ count, colors }) {
   const lines = useMemo(
     () =>
       new Array(count).fill().map(() => {
         const pos = new THREE.Vector3(10 - Math.random() * 20, 10 - Math.random() * 20, 10 - Math.random() * 20)
+        //調成 new Array(3)或 new Array(300)看看
         const points = new Array(30)
           .fill()
           .map(() =>
@@ -53,6 +56,11 @@ function Rig({ mouse }) {
   useFrame(() => {
     camera.position.x += (mouse.current[0] / 50 - camera.position.x) * 0.05
     camera.position.y += (-mouse.current[1] / 50 - camera.position.y) * 0.05
+
+    //調成這樣看看
+    //camera.position.x += (mouse.current[0] / 5 - camera.position.x) * 0.05
+    //camera.position.y += (-mouse.current[1] / 5 - camera.position.y) * 0.05
+
     camera.lookAt(0, 0, 0)
   })
   return null
@@ -60,12 +68,15 @@ function Rig({ mouse }) {
 
 export default function App() {
   const mouse = useRef([0, 0])
+  console.log('mouse: ', mouse)
+  console.log('window.innerWidth:', window.innerWidth, 'window.innerHeight: ', window.innerHeight)
   return (
     <Canvas
-      style={{ background: '#ffc9e7' }}
+      style={{ background: '#AAAAAA' }}
       camera={{ position: [0, 0, 10], fov: 25 }}
-      onMouseMove={e => (mouse.current = [e.clientX - window.innerWidth / 2, e.clientY - window.innerHeight / 2])}>
+      onMouseMove={(e) => (mouse.current = [e.clientX - window.innerWidth / 2, e.clientY - window.innerHeight / 2])}>
       <Lines count={200} colors={['#A2CCB6', '#FCEEB5', '#EE786E', '#e0feff', 'lightpink', 'lightblue']} />
+      {/*Rig是滑鼠互動的關鍵*/}
       <Rig mouse={mouse} />
     </Canvas>
   )

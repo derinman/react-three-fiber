@@ -22,7 +22,7 @@ const random = (i) => {
     //rotation: [0, 0, THREE.Math.degToRad(Math.random() * 45)],
   }
 }
-console.log('random(1): ', random(1))
+//console.log('random(1): ', random(1))
 
 //製造number數量的array
 const data = new Array(number).fill().map(() => {
@@ -33,7 +33,7 @@ const data = new Array(number).fill().map(() => {
     args: [0.1 + Math.random() * 9, 0.1 + Math.random() * 9, 10],
   }
 })
-console.log('data: ', data)
+//console.log('data: ', data)
 
 function Content() {
   const [springs, set] = useSprings(number, (i) => ({
