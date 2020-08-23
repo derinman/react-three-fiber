@@ -48,6 +48,7 @@ function Lines({ count, colors }) {
       }),
     [colors, count]
   )
+  console.log(lines)
   return lines.map((props, index) => <Fatline key={index} {...props} />)
 }
 
