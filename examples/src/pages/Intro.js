@@ -25,6 +25,9 @@ const defaultComponent = 'Refraction'
 const visibleComponents = Object.entries(demos)
   //.filter(([name, item]) => !item.dev)
   .reduce((acc, [name, item]) => ({ ...acc, [name]: item }), {})
+console.log(Object.entries(demos))
+
+console.log(visibleComponents)
 
 export default function Intro() {
   let match = useRouteMatch('/demo/:name')
@@ -59,6 +62,7 @@ export default function Intro() {
   )
 }
 
+//連結圓點
 function Demos() {
   let match = useRouteMatch('/demo/:name')
   let { bright } = visibleComponents[match ? match.params.name : defaultComponent]
