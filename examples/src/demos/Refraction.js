@@ -7,8 +7,8 @@ import RefractionMaterial from '../resources/shaders/Refraction'
 import diamondUrl from '../resources/gltf/diamond.glb'
 import textureUrl from '../resources/images/backdrop.jpg'
 
-console.log(diamondUrl)
-console.log(textureUrl)
+//console.log(diamondUrl)
+//console.log(textureUrl)
 
 function Background() {
   const { viewport, aspect } = useThree()

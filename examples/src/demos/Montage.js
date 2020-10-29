@@ -72,7 +72,7 @@ function Lights() {
   )
 }
 
-export default function App() {
+function App() {
   return (
     <Canvas shadowMap style={{ background: '#A2CCB6' }} camera={{ position: [0, 0, 150], fov: 100 }}>
       <Lights />
@@ -84,3 +84,5 @@ export default function App() {
     </Canvas>
   )
 }
+
+export default App

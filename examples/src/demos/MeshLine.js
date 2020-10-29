@@ -18,8 +18,8 @@ function Fatline({ curve, width, color, speed }) {
         ref={lineRef}
         depthTest={false} //調成true看看
         lineWidth={width}
-        transparent
         color={color}
+        transparent
         dashArray={0.1}
         dashRatio={0.9}
       />
@@ -27,7 +27,7 @@ function Fatline({ curve, width, color, speed }) {
   )
 }
 
-//產生count數量的MeshLine本例是200
+//產生count數量的MeshLine data本例是200
 function Lines({ count, colors }) {
   const lines = useMemo(
     () =>
@@ -77,10 +77,10 @@ function Rig({ mouse }) {
   return null
 }
 
-export default function App() {
+function App() {
   const mouse = useRef([0, 0])
-  console.log('mouse: ', mouse)
-  console.log('window.innerWidth:', window.innerWidth, 'window.innerHeight: ', window.innerHeight)
+  //console.log('mouse: ', mouse)
+  //console.log('window.innerWidth:', window.innerWidth, 'window.innerHeight: ', window.innerHeight)
   return (
     <Canvas
       style={{ background: '#AAAAAA' }}
@@ -92,3 +92,5 @@ export default function App() {
     </Canvas>
   )
 }
+
+export default App

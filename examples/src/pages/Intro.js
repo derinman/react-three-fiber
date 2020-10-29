@@ -25,9 +25,9 @@ const defaultComponent = 'Refraction'
 const visibleComponents = Object.entries(demos)
   //.filter(([name, item]) => !item.dev)
   .reduce((acc, [name, item]) => ({ ...acc, [name]: item }), {})
-console.log(Object.entries(demos))
+//console.log(Object.entries(demos))
 
-console.log(visibleComponents)
+//console.log(visibleComponents)
 
 export default function Intro() {
   let match = useRouteMatch('/demo/:name')
