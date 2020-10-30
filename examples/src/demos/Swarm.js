@@ -17,6 +17,7 @@ function Swarm({ count, mouse }) {
   const light = useRef()
   const { size, viewport } = useThree()
   const aspect = size.width / viewport.width
+  //console.log(size, viewport, aspect)
 
   const dummy = useMemo(() => new THREE.Object3D(), [])
   // Generate some random positions, speed factors and timings
@@ -34,7 +35,7 @@ function Swarm({ count, mouse }) {
     return temp
   }, [count])
   // The innards of this hook will run every frame
-  useFrame(state => {
+  useFrame((state) => {
     // Makes the light follow the mouse
     light.current.position.set(mouse.current[0] / aspect, -mouse.current[1] / aspect, 0)
     // Run through the randomized data to calculate some movement
@@ -63,12 +64,15 @@ function Swarm({ count, mouse }) {
   })
   return (
     <>
+      {/*主要光束*/}
       <pointLight ref={light} distance={40} intensity={8} color="lightblue">
         <mesh scale={[1, 1, 6]}>
-          <dodecahedronBufferGeometry attach="geometry" args={[4, 0]} />
+          {/*調成scale={[1,1,1]}看看*/}
+          <dodecahedronBufferGeometry attach="geometry" args={[8, 0]} />
           <meshBasicMaterial attach="material" color="lightblue" transparent />
         </mesh>
       </pointLight>
+      {/*小碎石*/}
       <instancedMesh ref={mesh} args={[null, null, count]}>
         <dodecahedronBufferGeometry attach="geometry" args={[1, 0]} />
         <meshStandardMaterial attach="material" color="#020000" roughness={0.5} metalness={0.5} />
@@ -84,6 +88,7 @@ function Effect({ down }) {
   useEffect(() => void composer.current.setSize(size.width, size.height), [size])
   useFrame(() => composer.current.render(), 1)
   return (
+    /*關掉下面每一個看看*/
     <effectComposer ref={composer} args={[gl]}>
       <renderPass attachArray="passes" scene={scene} camera={camera} />
       <waterPass attachArray="passes" factor={2} />
@@ -94,13 +99,15 @@ function Effect({ down }) {
   )
 }
 
-export default function App() {
+function App() {
   const [down, set] = useState(false)
   const mouse = useRef([300, -200])
   const onMouseMove = useCallback(
     ({ clientX: x, clientY: y }) => (mouse.current = [x - window.innerWidth / 2, y - window.innerHeight / 2]),
     []
   )
+  //console.log(down);
+
   return (
     <div
       style={{ width: '100%', height: '100%' }}
@@ -120,3 +127,5 @@ export default function App() {
     </div>
   )
 }
+
+export default App

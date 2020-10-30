@@ -90,9 +90,9 @@ function Effects() {
   )
 }
 
-export default function App() {
+function App() {
   return (
-    <Canvas style={{ background: '#171720' }} shadowMap camera={{ fov: 50, position: [0, 0, 7] }}>
+    <Canvas style={{ background: '#171720' }} camera={{ fov: 50, position: [0, 0, 7] }} shadowMap>
       <ambientLight />
       <pointLight intensity={4} />
       <spotLight
@@ -109,3 +109,5 @@ export default function App() {
     </Canvas>
   )
 }
+
+export default App

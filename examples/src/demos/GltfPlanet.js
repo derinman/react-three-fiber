@@ -77,7 +77,7 @@ const Controls = (props) => {
   return <orbitControls ref={ref} args={[camera, gl.domElement]} {...props} />
 }
 
-export default function App() {
+function App() {
   return (
     <Canvas
       style={{ background: 'radial-gradient(at 50% 70%, #200f20 40%, #090b1f 80%, #050523 100%)' }}
@@ -94,6 +94,7 @@ export default function App() {
         shadow-mapSize-height={2048}
       />
       <fog attach="fog" args={['#090b1f', 0, 25]} />
+      {/*關掉看看*/}
       <Suspense fallback={null}>
         <Planet />
       </Suspense>
@@ -111,3 +112,5 @@ export default function App() {
     </Canvas>
   )
 }
+
+export default App

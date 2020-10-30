@@ -43,7 +43,7 @@ export function Controls() {
   return <orbitControls ref={ref} args={[camera, gl.domElement]} enableDamping dampingFactor={0.1} rotateSpeed={0.5} />
 }
 
-export default function App() {
+function App() {
   return (
     <Canvas style={{ background: '#dfdfdf' }} camera={{ position: [0, 0, 10] }}>
       <pointLight intensity={5} position={[0, 0, -50]} />
@@ -64,3 +64,5 @@ export default function App() {
     </Canvas>
   )
 }
+
+export default App

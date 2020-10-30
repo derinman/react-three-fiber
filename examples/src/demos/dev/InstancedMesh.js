@@ -4,6 +4,7 @@ import { Canvas, useFrame, useLoader } from 'react-three-fiber'
 import suzanne from '../../resources/gltf/suzanne.blob'
 
 const dummy = new THREE.Object3D()
+
 function Suzanne() {
   // Load async model
   const geometry = useLoader(THREE.BufferGeometryLoader, suzanne)
@@ -14,7 +15,7 @@ function Suzanne() {
   }, [geometry])
   // Compute per-frame instance positions
   const ref = useRef()
-  useFrame(state => {
+  useFrame((state) => {
     const time = state.clock.getElapsedTime()
     ref.current.rotation.x = Math.sin(time / 4)
     ref.current.rotation.y = Math.sin(time / 2)
@@ -37,7 +38,7 @@ function Suzanne() {
   )
 }
 
-export default function() {
+function App() {
   return (
     <Canvas camera={{ position: [0, 0, 15] }}>
       <Suspense fallback={null}>
@@ -46,3 +47,5 @@ export default function() {
     </Canvas>
   )
 }
+
+export default App
