@@ -4,6 +4,21 @@ import { Link, Route, Switch, useRouteMatch } from 'react-router-dom'
 import * as demos from '../demos'
 import { Page as PageImpl } from '../styles'
 
+const DemoPanel = styled.div`
+  position: absolute;
+  bottom: 50px;
+  left: 50px;
+  max-width: 250px;
+`
+
+const Spot = styled.div`
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin: 8px;
+`
+
 const Page = styled(PageImpl)`
   padding: 20px;
 
@@ -23,15 +38,42 @@ const Page = styled(PageImpl)`
 
 const defaultComponent = 'Refraction'
 const visibleComponents = Object.entries(demos)
-  //.filter(([name, item]) => !item.dev)
-  .reduce((acc, [name, item]) => ({ ...acc, [name]: item }), {})
-//console.log(Object.entries(demos))
+  //.filter(([name, item]) => !item.dev)//可彈性調整掛載卸載
+  .reduce((acc, [name, item]) => ({ ...acc, [name]: item }), {}) //再度變回Object
 
+//console.log(demos)
+//console.log(Object.entries(demos))
 //console.log(visibleComponents)
 
-export default function Intro() {
+//連結圓點
+function Demos() {
   let match = useRouteMatch('/demo/:name')
   let { bright } = visibleComponents[match ? match.params.name : defaultComponent]
+  return (
+    <DemoPanel>
+      {Object.entries(visibleComponents).map(([name, item]) => (
+        <Link key={name} to={`/demo/${name}`}>
+          <Spot
+            style={{
+              background:
+                (!match && name === defaultComponent) || (match && match.params.name === name)
+                  ? '#FA8072'
+                  : bright
+                  ? '#2c2d31'
+                  : '#FFF',
+            }}
+          />
+        </Link>
+      ))}
+    </DemoPanel>
+  )
+}
+
+function Intro() {
+  let match = useRouteMatch('/demo/:name')
+
+  let { bright } = visibleComponents[match ? match.params.name : defaultComponent]
+
   return (
     <Page>
       <Suspense fallback={null}>
@@ -47,56 +89,11 @@ export default function Intro() {
           />
         </Switch>
       </Suspense>
+
+      {/*dots*/}
       <Demos />
-      {/*<h1 style={{ color: bright ? '#2c2d31' : 'white' }}>
-        three
-        <br />
-        zero
-        <br />
-        seven.
-      </h1>*/}
-      <a href="https://github.com/drcmda/react-three-fiber" style={{ color: bright ? '#2c2d31' : 'white' }}>
-        Github
-      </a>
     </Page>
   )
 }
 
-//連結圓點
-function Demos() {
-  let match = useRouteMatch('/demo/:name')
-  let { bright } = visibleComponents[match ? match.params.name : defaultComponent]
-  return (
-    <DemoPanel>
-      {Object.entries(visibleComponents).map(([name, item]) => (
-        <Link key={name} to={`/demo/${name}`}>
-          <Spot
-            style={{
-              background:
-                (!match && name === defaultComponent) || (match && match.params.name === name)
-                  ? 'salmon'
-                  : bright
-                  ? '#2c2d31'
-                  : 'white',
-            }}
-          />
-        </Link>
-      ))}
-    </DemoPanel>
-  )
-}
-
-const DemoPanel = styled.div`
-  position: absolute;
-  bottom: 50px;
-  left: 50px;
-  max-width: 250px;
-`
-
-const Spot = styled.div`
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  margin: 8px;
-`
+export default Intro
